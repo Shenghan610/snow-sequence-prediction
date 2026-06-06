@@ -1,0 +1,2 @@
+snow_sequence_training_datasets.zip filter=lfs diff=lfs merge=lfs -text
+best_highres_snow_heatmap_model.pth filter=lfs diff=lfs merge=lfs -text
