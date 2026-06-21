@@ -1,0 +1,9 @@
+torch==2.7.1
+torchvision==0.22.1
+numpy
+rasterio
+PyYAML
+matplotlib
+requests
+pytest
+ruff

@@ -1,0 +1,110 @@
+project:
+  seed: 42
+  artifacts_dir: "F:/new_experiment/artifacts/qa_experiment_v8"
+
+data:
+  root: "F:/new_experiment/data_qa_v7_256"
+  region_id: "ali"
+  external_region_id: "tianshan"
+  sequence_length: 20
+  image_size: 256
+  qa_policy: "strict"
+  target_min_valid_fraction: 0.80
+  num_workers: 0
+
+model:
+  internal_size: 256
+  patch_size: 4
+  embed_dim: 128
+  attention_heads: 4
+  temporal_layers: 2
+  spatial_layers: 3
+  window_size: 4
+  attractor_iterations: 4
+  max_residual: 0.40
+  coverage_bins: 9
+  change_bins: 9
+  season_bins: 12
+  memory_tokens: 8
+  change_scale: 0.20
+  coordinate_step_scale: 0.04
+  lyapunov_coordinate_weight: 0.05
+  attraction_rate_init: 0.05
+  enable_boundary_refiner: true
+  boundary_residual_scale: 0.08
+  coverage_calibration: true
+  dropout: 0.1
+
+loss:
+  final_l1_weight: 1.0
+  final_mse_weight: 1.0
+  auxiliary_weight: 0.0
+  energy_alignment_weight: 0.0
+  energy_monotonicity_weight: 0.02
+  lyapunov_weight: 0.02
+  coverage_l1_weight: 2.0
+  coverage_mse_weight: 20.0
+  coordinate_coverage_weight: 0.25
+  coordinate_change_weight: 0.25
+  manifold_distance_weight: 0.01
+  manifold_first_order_weight: 0.001
+  manifold_second_order_weight: 0.005
+  noise_consistency_weight: 0.0
+  event_change_threshold: 0.01
+  event_weight: 1.0
+  bounded_event_weighting: true
+  accumulation_extra_weight: 0.0
+  accumulation_underprediction_weight: 1.0
+  coverage_delta_mse_weight: 5.0
+  coverage_direction_weight: 0.02
+  ssim_weight: 0.2
+  dice_weight: 0.2
+  dominance_weight: 1.0
+  dominance_margin: 0.001
+  trajectory_smoothness_weight: 0.001
+  boundary_sobel_weight: 0.05
+  boundary_band_weight: 0.10
+  boundary_band_radius: 3
+
+training:
+  epochs: 100
+  patience: 18
+  learning_rate: 0.0005
+  weight_decay: 0.0003
+  amp: true
+  effective_batch_size: 8
+  warmstart_freeze_epochs: 5
+  physical_batch_size:
+    transformer_cann_lyapunov_boundary: 4
+    convlstm: 4
+    convlstm_unet: 4
+    predrnn: 4
+    predrnnv2: 2
+    simvpv2: 4
+    swinlstm: 2
+    vmrnn: 2
+
+splits:
+  development:
+    train_start: "2015-01-21"
+    train_end: "2018-12-11"
+    validation_start: "2019-01-01"
+    validation_end: "2019-12-31"
+  fold_1:
+    train_start: "2015-01-21"
+    train_end: "2019-12-11"
+    validation_start: "2020-01-01"
+    validation_end: "2020-12-31"
+  fold_2:
+    train_start: "2015-01-21"
+    train_end: "2020-12-11"
+    validation_start: "2021-01-01"
+    validation_end: "2021-12-31"
+  fold_3:
+    train_start: "2015-01-21"
+    train_end: "2022-12-11"
+    validation_start: "2023-01-01"
+    validation_end: "2023-12-31"
+  frozen_test:
+    start: "2024-01-01"
+    end: "2024-12-31"
